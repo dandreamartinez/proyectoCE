@@ -39,6 +39,11 @@
             $query = "SELECT * FROM test_students WHERE lv_id = '$lv_id'";
         } 
 
+        //busca solo por grupo
+        if (!$first_name && !$last_name && $lv_id == 'all' && $grupo_id_id !== 'all') {
+            $query = "SELECT * FROM test_students WHERE `group` = '$grupo_id_id'";
+        } 
+
         //busca nombre y apellido
         if ($first_name && $last_name && $lv_id == 'all' && $grupo_id_id == 'all') {
             $query = "SELECT * FROM test_students WHERE first_name like '%$first_name%' AND last_name like '%$last_name%'";
