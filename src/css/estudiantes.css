@@ -1,0 +1,98 @@
+/* Listar estudiantes */
+.contenedor-estudiante {
+    display:flex;
+    background-color: var(--grisOscuro);
+}
+.estudiante {
+    width: 100%;
+    display: grid;
+    border: 1rem;
+    grid-auto-flow: column;
+}
+
+
+@media (min-width: 768px){
+    .id {
+        width: 5rem;
+    }
+    
+    .nombres {
+        width: 25rem;
+    }
+    
+    .apellidos {
+        width: 25rem;
+    }
+    
+    .grado {
+        width: 15rem;
+    }
+    
+    .grupo {
+        width: 15rem;
+    }
+    
+    .estado {
+        width: 15rem;
+    }
+}
+
+.estudiante-titulo {
+    background-color: var(--grisOscuro);
+    color: var(--blanco);
+    font-weight: 700;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+/*Mostrar información estudiante*/
+.estudiante-actualizar {
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    transition: visibility .3s ease-in-out, opacity 0.5s linear, height 0.5s linear;  
+    display: flex
+}
+
+.pestaña-actualizar {
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    transition: visibility .3s ease-in-out, opacity 0.5s linear, height 0.5s linear;  
+    display: flex;
+}
+
+.pestaña {
+    flex-basis: calc(30% - 1rem);
+}
+
+.estudianteClic:hover {
+    cursor:pointer;
+    color: var(--terciario);
+}
+
+.titulo-actualizar {
+    background-color: var(--grisClaro);
+    border-radius: 5rem 5rem 0 0;
+}
+
+.mostrar {
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+}
+
+.pintar {
+    background-color: var(--fondos);
+}
+
+.pestañaColor {
+    background-color: var(--primarioClaro);
+    color: var(--blanco);
+    font-weight: 800;
+}
+
+.pestañaClic:hover {
+    cursor:pointer;
+    color: var(--terciario);
+}

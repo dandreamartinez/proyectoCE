@@ -1,0 +1,26 @@
+/*Utilidades*/
+.contenido-centrado {
+    max-width: 80rem;
+}
+
+.alinear-derecha{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.centrar {
+    text-align: center;
+}
+
+html{
+    box-sizing: border-box; /*Sirve para revertir o quitar el modelo caja*/
+    font-size: 62.5%; /*Esto permite que un rem sea igual a 10 pixeles*/
+}
+
+*, *:before, *:after {
+    box-sizing: inherit; /*Sirve para revertir o quitar el modelo caja con el asterisco hace el proceso con todos los elementos*/
+}

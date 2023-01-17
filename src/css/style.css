@@ -1,0 +1,59 @@
+/*Custom propierties son variables que puedo usar en todo el diseño*/
+:root {
+    --primario:     #002832;
+    --primarioClaro:#279a8e;
+    --secundario:   #005e76;
+    --terciario:    #f7ac11;
+    --blanco:       #ffffff;
+    --negro:        #000;
+    --grisOscuro:   #9298A0;
+    --grisClaro:    #E6E7F1;
+    --fondos:       #FEDFA1;
+}
+
+/*Estilos globales*/
+
+body{
+    background-color: var(--blanco);
+    font-size: 1.6rem;
+    line-height: 1.5;/*Interlineado*/
+    margin: 0;
+}
+
+p {
+    font-size: 1.8rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+.contenedor {
+    max-width: 120rem;
+    margin: 0;
+}
+
+/* pestaña Actualizar*/
+.contenedor-actualizar {
+    margin: 2rem;
+    font-weight: 800;
+}
+
+.formActualizar {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 6rem;
+    grid-auto-flow: row;
+
+}
+
+.formActualizar label {
+    width: 10rem;
+    margin-right: 2rem; 
+}

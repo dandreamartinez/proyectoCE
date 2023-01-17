@@ -1,0 +1,12 @@
+/*Botones*/
+
+.boton {
+    width: 8rem;
+    height: 2.5rem;
+    background-color: var(--secundario);
+    color: var(--blanco);
+    border-radius: 20%;
+    border-color: var(--primarioClaro);
+    font-weight: 700;
+    font-size: 1.6rem;
+}
