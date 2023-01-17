@@ -1,72 +1,6 @@
 <?php
     //importar bd o conexión a bd
-    require 'includes/database.php';
-    $db         = conectarDB();
-
-    //consultar datos
-
-    $query      = "SELECT * FROM test_students";
-
-    //obtener resultados
-    $resultado  = mysqli_query($db, $query);
-
-    //Buscador
-    $first_name = "";
-    $last_name  = "";
-    $lv_id      = "all";
-    $grupo_id_id      = "all";
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-        $first_name = $_POST['first_name'];
-        $last_name  = $_POST['last_name'];
-        $lv_id      = $_POST['lv_id'];
-        $grupo_id_id  = $_POST['grupo_id_id'];
-
-        if (!$first_name && !$last_name && $lv_id == 'all' && $grupo_id_id == 'all') {
-            $query = "SELECT * FROM test_students WHERE first_name like '%$first_name%'";
-        } 
-        //busca solo por nombre
-        if ($first_name && !$last_name && $lv_id == 'all' && $grupo_id_id == 'all') {
-            $query = "SELECT * FROM test_students WHERE first_name like '%$first_name%'";
-        } 
-        //busca solo por apellido
-        if (!$first_name && $last_name && $lv_id == 'all' && $grupo_id_id == 'all') {
-            $query = "SELECT * FROM test_students WHERE last_name like '%$last_name%'";
-        } 
-
-        //busca solo por grado
-        if (!$first_name && !$last_name && $lv_id !== 'all' && $grupo_id_id == 'all') {
-            $query = "SELECT * FROM test_students WHERE lv_id = '$lv_id'";
-        } 
-
-        //busca solo por grupo
-        if (!$first_name && !$last_name && $lv_id == 'all' && $grupo_id_id !== 'all') {
-            $query = "SELECT * FROM test_students WHERE `group` = '$grupo_id_id'";
-        } 
-
-        //busca nombre y apellido
-        if ($first_name && $last_name && $lv_id == 'all' && $grupo_id_id == 'all') {
-            $query = "SELECT * FROM test_students WHERE first_name like '%$first_name%' AND last_name like '%$last_name%'";
-        } 
-        //busca nombre apellido y grado
-        if ($first_name && $last_name && $lv_id !== 'all' && $grupo_id_id !== 'all') {
-            $query = "SELECT * FROM test_students WHERE first_name like '%$first_name%' AND last_name like '%$last_name%' AND lv_id = '$lv_id'";
-        } 
-
-        //busca nombre apellido grado y grupo
-        if ($_POST['first_name'] && $_POST['last_name'] && $_POST['lv_id'] !== 'all' && $_POST['grupo_id_id'] !== 'all') {
-            $query = "SELECT * FROM test_students WHERE first_name like '%$first_name%' AND last_name like '%$last_name%' AND lv_id = '$lv_id' AND `group` = '$grupo_id_id'";
-        } 
-
-        //captura lso errores en las consultas
-        if(mysqli_query($db, $query)) {
-            $resultado = mysqli_query($db, $query);
-            mysqli_close($db);
-        }else{
-            echo "Error en la consulta" . $query . "-" . mysqli_error($db);
-        }
-        
-    } 
+    require 'src/php/buscador.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -103,23 +37,23 @@
                             <div class="campo campo-input">
                                 <label for="opciones">Grado</label>
                                 <select id="opciones" name="lv_id">
-                                    <option  value="all">Todos</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
+                                    <?php for ($i = 0; $i <=11; $i++) { 
+                                        ?>
+                                        <option value="<?php echo $i ?>" <?php echo $i === $lv_id ? 'selected' : ''; ?>>
+                                        <?php 
+                                            if ($i == 0) {
+                                                echo "Todos";
+                                            } else {
+                                                echo $i;
+                                            }
+                                        ?>
+                                    </option>
+                                    <?php }?>
                                 </select>
                             </div>
                             <div class="campo campo-input">
                                 <label for="opciones">Grupo</label>
-                                <select id="opciones" name="grupo_id_id">
+                                <select id="opciones" name="grupo_id">
                                     <option value="all">Todos</option>
                                     <option value="A">A</option>
                                     <option value="B">B</option>
