@@ -9,6 +9,7 @@ function eventListener() {
     const pestañas              = document.querySelector('pestañaClic');
     informacionEstudiante.addEventListener('click', mostrarInformacion);
     informacionEstudiante.addEventListener('click', CambiarColor);
+    informacionEstudiante.addEventListener('click', leerInformacion);
     pestañas.addEventListener('Click', ColorPestañas);
 }
 

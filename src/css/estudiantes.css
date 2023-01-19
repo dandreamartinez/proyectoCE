@@ -51,7 +51,8 @@
     opacity: 0;
     height: 0;
     transition: visibility .3s ease-in-out, opacity 0.5s linear, height 0.5s linear;  
-    display: flex
+    display: flex;
+    position: relative;
 }
 
 .pestaña-actualizar {
@@ -60,6 +61,7 @@
     height: 0;
     transition: visibility .3s ease-in-out, opacity 0.5s linear, height 0.5s linear;  
     display: flex;
+    position: relative;
 }
 
 .pestaña {

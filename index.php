@@ -39,7 +39,15 @@
                                 <select id="opciones" name="lv_id">
                                     <?php for ($i = 0; $i <=11; $i++) { 
                                         ?>
-                                        <option value="<?php echo $i ?>" <?php echo $i === $lv_id ? 'selected' : ''; ?>>
+                                        <option value="<?php echo $i ?>" 
+                                            <?php 
+                                            if ($i == $lv_id) {
+                                                echo 'selected';
+                                            } else {
+                                                echo '';
+                                            }
+                                            ?>
+                                        >
                                         <?php 
                                             if ($i == 0) {
                                                 echo "Todos";
@@ -55,10 +63,10 @@
                                 <label for="opciones">Grupo</label>
                                 <select id="opciones" name="grupo_id">
                                     <option value="all">Todos</option>
-                                    <option value="A">A</option>
-                                    <option value="B">B</option>
-                                    <option value="C">C</option>
-                                    <option value="D">D</option>
+                                    <option value="A" <?php if ($grupo_id == 'A') {echo 'selected';} else {echo '';}?>>A</option>
+                                    <option value="B" <?php if ($grupo_id == 'B') {echo 'selected';} else {echo '';}?>>B</option>
+                                    <option value="C" <?php if ($grupo_id == 'C') {echo 'selected';} else {echo '';}?>>C</option>
+                                    <option value="D" <?php if ($grupo_id == 'D') {echo 'selected';} else {echo '';}?>>D</option>
                                 </select>
                             </div>
                             <div class="campo">
@@ -81,8 +89,8 @@
             </div>
         </div>
         <?php while ($estudiantes = mysqli_fetch_assoc($resultado)):?>
-                <div class="estudiante estudianteClic">
-                    <div class="centrar id"><?php echo $estudiantes['s_id'];?></div>
+                <div id='tabla' class="estudiante estudianteClic">
+                    <div class="centrar id" id='id' data-value='<?php echo $estudiantes['s_id'];?>'><?php echo $estudiantes['s_id'];?></div>
                     <div class="nombres"><?php echo $estudiantes['first_name'];?></div>
                     <div class="apellidos"><?php echo $estudiantes['last_name'];?></div>
                     <div class="centrar grado"><?php echo $estudiantes['lv_id'];?></div>
@@ -100,6 +108,67 @@
                 <div class="estudiante-actualizar">
                     <div class="centrar titulo-actualizar pestaña pestañaClic actualizar pestañaColor">Actualizar</div>
                     <div class="centrar titulo-actualizar pestaña pestañaClic curso">Cursos</div>
+                </div>
+                <div class="pestaña-actualizar">
+                    <form class="formActualizar" method="POST" action="index.php" enctype="multipart/form-data">
+                        <div class="campo campo-input">
+                            <label for="nombre">Nombres</label>
+                            <input type="text" placeholder="<?php echo $estudiantes['first_name'];?>" id="nombre" name='first_name' value="<?php echo $estudiantes['first_name'];?>">
+                        </div>
+                        <div class="campo campo-input">
+                            <label for="apellidos">Apellidos</label>
+                            <input type="text" placeholder="Apellidos" id="apellido" name='last_name' value="<?php echo $estudiantes['last_name'];?>">
+                        </div>
+                        <div class="campo campo-input">
+                            <label for="email">Email</label>
+                            <input type="text" placeholder="Email" id="email" name='email' value="<?php echo $estudiantes['email'];?>">
+                        </div>
+                        <div class="campo campo-input">
+                            <label for="tel">Teléfono</label>
+                            <input type="text" placeholder="Teléfono" id="telefono" name='phone_number' value="<?php echo $estudiantes['phone_number'];?>">
+                        </div>
+                        <div class="campo campo-input">
+                            <label for="lv_id">Grado</label>
+                            <select id="opciones" name="lv_id">
+                                <?php for ($i = 0; $i <=11; $i++) { 
+                                    ?>
+                                    <option value="<?php echo $i ?>" 
+                                            <?php 
+                                            if ($i == $estudiantes['lv_id']) {
+                                                echo 'selected';
+                                            } else {
+                                                echo '';
+                                            }
+                                            ?>
+                                        >
+                                    <?php 
+                                        if ($i == 0) {
+                                            echo "Todos";
+                                        } else {
+                                            echo $i;
+                                        }
+                                    ?>
+                                </option>
+                                <?php }?>
+                            </select>
+                        </div>
+                        <div class="campo campo-input">
+                            <label for="grupo">Grupo</label>
+                            <select id="opciones" name="grupo">
+                                <option value="A" <?php if ($estudiantes['group'] == 'A') {echo 'selected';} else {echo '';}?>>A</option>
+                                <option value="B" <?php if ($estudiantes['group'] == 'B') {echo 'selected';} else {echo '';}?>>B</option>
+                                <option value="C" <?php if ($estudiantes['group'] == 'C') {echo 'selected';} else {echo '';}?>>C</option>
+                                <option value="D" <?php if ($estudiantes['group'] == 'D') {echo 'selected';} else {echo '';}?>>D</option>
+                            </select>
+                        </div>
+                        <div class="campo campo-input">
+                            <label for="nombre">Estado</label>
+                            <select id="opciones" name="estado">
+                                <option value="0" <?php if ($estudiantes['status'] == '0') {echo 'selected';} else {echo '';}?>>Inactivo</option>
+                                <option value="1" <?php if ($estudiantes['status'] == '1') {echo 'selected';} else {echo '';}?>>Activo</option>
+                            </select>
+                        </div>
+                    </form>
                 </div>
             <?php endwhile; ?>
         <script src="src/js/app.js"></script>
