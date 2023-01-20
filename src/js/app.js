@@ -5,16 +5,18 @@ document.addEventListener('DOMContentLoaded', function() {
 //ocultar la información del estudiante
 
 function eventListener() {
-    const informacionEstudiante = document.querySelector('.estudianteClic');
-    const pestañas              = document.querySelector('pestañaClic');
-    informacionEstudiante.addEventListener('click', mostrarInformacion);
-    informacionEstudiante.addEventListener('click', CambiarColor);
-    informacionEstudiante.addEventListener('click', leerInformacion);
-    pestañas.addEventListener('Click', ColorPestañas);
+      document.querySelectorAll('.eclic').forEach(occurence => {
+        occurence.addEventListener('click', (e) => {
+            const id = e.target.getAttribute('id');
+            mostrarInformacion(id);
+            cambiarColor(id);
+        });
+      });
 }
 
-function mostrarInformacion() {
-    const estudianteActualizar = document.querySelector('.estudiante-actualizar');
+
+function mostrarInformacion(id) {
+    const estudianteActualizar = document.querySelector('.estudiante-actualizar' + id);
 
     if (estudianteActualizar.classList.contains('mostrar')) {
         estudianteActualizar.classList.remove('mostrar');
@@ -22,7 +24,7 @@ function mostrarInformacion() {
         estudianteActualizar.classList.add('mostrar');
     }
 
-    const pestañaActualizar = document.querySelector('.pestaña-actualizar');
+    const pestañaActualizar = document.querySelector('.pestaña-actualizar' + id);
 
     if (pestañaActualizar.classList.contains('mostrar')) {
         pestañaActualizar.classList.remove('mostrar');
@@ -37,22 +39,12 @@ function mostrarInformacion() {
     }
 }
 
-function CambiarColor(){
-    const cambiarColor = document.querySelector('.estudianteClic');
+function CambiarColor(id){
+    const cambiarColor = document.querySelector('.estudianteClic' + id);
 
     if (cambiarColor.classList.contains('pintar')) {
         cambiarColor.classList.remove('pintar');
     } else {
         cambiarColor.classList.add('pintar');
-    }
-}
-
-function ColorPestañas() {
-    const pestañaColorCur = document.querySelector('.curso')
-
-    if (pestañaColorCur.classList.contains('pestañaColor')) {
-        pestañaColorCur.classList.remove('pestañaColor');
-    } else {
-        pestañaColorCur.classList.add('pestañaColor');
     }
 }

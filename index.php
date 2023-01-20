@@ -89,51 +89,55 @@
             </div>
         </div>
         <?php while ($estudiantes = mysqli_fetch_assoc($resultado)):?>
-                <div id='tabla' class="estudiante estudianteClic">
-                    <div class="centrar id" id='id' data-value='<?php echo $estudiantes['s_id'];?>'><?php echo $estudiantes['s_id'];?></div>
-                    <div class="nombres"><?php echo $estudiantes['first_name'];?></div>
-                    <div class="apellidos"><?php echo $estudiantes['last_name'];?></div>
-                    <div class="centrar grado"><?php echo $estudiantes['lv_id'];?></div>
-                    <div class="centrar grupo"><?php echo $estudiantes['group'];?></div>
-                    <div class="centrar estado">
+                <div id='<?php echo $estudiantes['s_id']; ?>' class="estudiante eclic estudianteClic<?php echo $estudiantes['s_id'];?>">
+                    <div class="centrar id" id='<?php echo $estudiantes['s_id']; ?>' data-value='<?php echo $estudiantes['s_id'];?>'><?php echo $estudiantes['s_id'];?></div>
+                    <div class="nombres" id='<?php echo $estudiantes['s_id']; ?>'><?php echo $estudiantes['first_name'];?></div>
+                    <div class="apellidos" id='<?php echo $estudiantes['s_id']; ?>'><?php echo $estudiantes['last_name'];?></div>
+                    <div class="centrar grado" id='<?php echo $estudiantes['s_id']; ?>'><?php echo $estudiantes['lv_id'];?></div>
+                    <div class="centrar grupo" id='<?php echo $estudiantes['s_id']; ?>'><?php echo $estudiantes['group'];?></div>
+                    <div class="centrar estado" id='<?php echo $estudiantes['s_id']; ?>'>
                         <?php 
-                            if ($estudiantes['status'] == 1) {
+                            if ($estudiantes['status'] == 1) { 
                                 echo 'Activo';
-                            } else {
-                                echo 'Inactivo';
-                            }
+                            } else { 
                         ?>
+                        <span class="cancelado">
+                        <?php
+                            echo 'Inactivo';
+                        }
+                        ?>
+                        </span>  
                     </div>
                 </div>
-                <div class="estudiante-actualizar">
+                <div class="estudiante-actualizar<?php echo $estudiantes['s_id'];?> estudiante-actualizar">
                     <div class="centrar titulo-actualizar pestaña pestañaClic actualizar pestañaColor">Actualizar</div>
                     <div class="centrar titulo-actualizar pestaña pestañaClic curso">Cursos</div>
                 </div>
-                <div class="pestaña-actualizar">
+                <div class="pestaña-actualizar<?php echo $estudiantes['s_id'];?> pestaña-actualizar">
                     <form class="formActualizar" method="POST" action="index.php" enctype="multipart/form-data">
                         <div class="campo campo-input">
                             <label for="nombre">Nombres</label>
-                            <input type="text" placeholder="<?php echo $estudiantes['first_name'];?>" id="nombre" name='first_name' value="<?php echo $estudiantes['first_name'];?>">
+                            <input type="text" placeholder="<?php echo $estudiantes['first_name'];?>" id="nombre" name='ac_first_name' value="<?php echo $estudiantes['first_name'];?>">
                         </div>
                         <div class="campo campo-input">
                             <label for="apellidos">Apellidos</label>
-                            <input type="text" placeholder="Apellidos" id="apellido" name='last_name' value="<?php echo $estudiantes['last_name'];?>">
+                            <input type="text" placeholder="Apellidos" id="apellido" name='ac_last_name' value="<?php echo $estudiantes['last_name'];?>">
                         </div>
                         <div class="campo campo-input">
                             <label for="email">Email</label>
-                            <input type="text" placeholder="Email" id="email" name='email' value="<?php echo $estudiantes['email'];?>">
+                            <input type="text" placeholder="Email" id="email" name='ac_email' value="<?php echo $estudiantes['email'];?>">
                         </div>
                         <div class="campo campo-input">
                             <label for="tel">Teléfono</label>
-                            <input type="text" placeholder="Teléfono" id="telefono" name='phone_number' value="<?php echo $estudiantes['phone_number'];?>">
+                            <input type="text" placeholder="Teléfono" id="telefono" name='ac_phone_number' value="<?php echo $estudiantes['phone_number'];?>">
                         </div>
                         <div class="campo campo-input">
-                            <label for="lv_id">Grado</label>
+                            <label for="ac_lv_id">Grado</label>
                             <select id="opciones" name="lv_id">
-                                <?php for ($i = 0; $i <=11; $i++) { 
+                                <?php for ($i = 0; $i <=11; $i++) {
                                     ?>
-                                    <option value="<?php echo $i ?>" 
-                                            <?php 
+                                    <option value="<?php echo $i ?>"
+                                            <?php
                                             if ($i == $estudiantes['lv_id']) {
                                                 echo 'selected';
                                             } else {
@@ -141,7 +145,7 @@
                                             }
                                             ?>
                                         >
-                                    <?php 
+                                    <?php
                                         if ($i == 0) {
                                             echo "Todos";
                                         } else {
@@ -167,6 +171,9 @@
                                 <option value="0" <?php if ($estudiantes['status'] == '0') {echo 'selected';} else {echo '';}?>>Inactivo</option>
                                 <option value="1" <?php if ($estudiantes['status'] == '1') {echo 'selected';} else {echo '';}?>>Activo</option>
                             </select>
+                        </div>
+                        <div class="campo campo-input">
+                            <input type="submit" value="Actualizar" class="boton boton-alerta">
                         </div>
                     </form>
                 </div>

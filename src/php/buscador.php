@@ -84,24 +84,6 @@
         if (!$_POST['first_name'] && !$_POST['last_name'] && $_POST['lv_id'] !== '0' && $_POST['grupo_id'] !== 'all') {
             $query = "SELECT * FROM test_students WHERE lv_id = '$lv_id' AND `group` = '$grupo_id'";
         } 
-
-        // echo "<br>";
-        // var_dump($_POST);
-        // echo "</br>";
-        // var_dump($query);
-        // echo "<br>";
-        // echo "--- ".$first_name;
-        // echo "</br>";
-        // echo "<br>";
-        // echo "---- ".$last_name;
-        // echo "</br>";
-        // echo "<br>";
-        // echo " ---".$lv_id;
-        // echo "</br>";
-        // echo "<br>";
-        // echo "--- ".$grupo_id;
-        // echo "</br>";
-
         //captura lso errores en las consultas
         if(mysqli_query($db, $query)) {
             $resultado = mysqli_query($db, $query);
