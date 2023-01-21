@@ -1,6 +1,6 @@
 <?php
     //importar bd o conexión a bd
-    require 'src/php/buscador.php';
+    require_once 'src/php/buscador.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,14 +25,14 @@
                         <img src="src/img/logo.png" alt="logotipo de bienes raíces"">
                     </a>   
                     <div class="derecha">
-                        <form class="navegacion" method="POST" action="index.php" enctype="multipart/form-data">
+                        <form class="navegacion" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>" enctype="multipart/form-data">
                             <div class="campo campo-input">
                                 <label for="nombre">Nombres</label>
-                                <input type="text" placeholder="Nombres" id="nombre" name='first_name' value="<?php echo $first_name?>">
+                                <input type="text" placeholder="Nombres" name='first_name' value="<?php echo $first_name?>">
                             </div>
                             <div class="campo campo-input">
                                 <label for="apellido">Apellidos</label>
-                                <input type="text" placeholder="Apellidos" id="apellido" name="last_name" value="<?php echo $last_name ?>">
+                                <input type="text" placeholder="Apellidos" name="last_name" value="<?php echo $last_name ?>">
                             </div>
                             <div class="campo campo-input">
                                 <label for="opciones">Grado</label>
@@ -69,6 +69,7 @@
                                     <option value="D" <?php if ($grupo_id == 'D') {echo 'selected';} else {echo '';}?>>D</option>
                                 </select>
                             </div>
+                            <input type="hidden" value='1' name="verificador">
                             <div class="campo">
                                 <input type="submit" value="Buscar" class="boton boton-alerta">
                             </div>
@@ -116,25 +117,25 @@
                 <div class="pestaña-actualizar<?php echo $estudiantes['s_id'];?> pestaña-actualizar">
                     <form class="formActualizar" method="POST" action="index.php" enctype="multipart/form-data">
                         <div class="campo campo-input">
-                            <label for="nombre">Nombres</label>
-                            <input type="text" placeholder="<?php echo $estudiantes['first_name'];?>" id="nombre" name='ac_first_name' value="<?php echo $estudiantes['first_name'];?>">
+                            <label for="ac_nombre">Nombres</label>
+                            <input type="text" placeholder="Nombres" id="nombre<?php echo $estudiantes['s_id'];?>" name='ac_first_name' value="<?php echo $estudiantes['first_name'];?>">
                         </div>
                         <div class="campo campo-input">
-                            <label for="apellidos">Apellidos</label>
-                            <input type="text" placeholder="Apellidos" id="apellido" name='ac_last_name' value="<?php echo $estudiantes['last_name'];?>">
+                            <label for="ac_apellidos">Apellidos</label>
+                            <input type="text" placeholder="Apellidos" id="apellido<?php echo $estudiantes['s_id'];?>" name='ac_last_name' value="<?php echo $estudiantes['last_name'];?>">
                         </div>
                         <div class="campo campo-input">
-                            <label for="email">Email</label>
-                            <input type="text" placeholder="Email" id="email" name='ac_email' value="<?php echo $estudiantes['email'];?>">
+                            <label for="ac_email">Email</label>
+                            <input type="email" placeholder="Email" id="email<?php echo $estudiantes['s_id'];?>" name='ac_email' value="<?php echo $estudiantes['email'];?>">
                         </div>
                         <div class="campo campo-input">
-                            <label for="tel">Teléfono</label>
-                            <input type="text" placeholder="Teléfono" id="telefono" name='ac_phone_number' value="<?php echo $estudiantes['phone_number'];?>">
+                            <label for="ac_tel">Teléfono</label>
+                            <input type="number" placeholder="Teléfono" id="telefono<?php echo $estudiantes['s_id'];?>" name='ac_phone_number' value="<?php echo $estudiantes['phone_number'];?>">
                         </div>
                         <div class="campo campo-input">
                             <label for="ac_lv_id">Grado</label>
-                            <select id="opciones" name="lv_id">
-                                <?php for ($i = 0; $i <=11; $i++) {
+                            <select id="lv_id<?php echo $estudiantes['s_id'];?>" name="ac_lv_id">
+                                <?php for ($i = 1; $i <=11; $i++) {
                                     ?>
                                     <option value="<?php echo $i ?>"
                                             <?php
@@ -146,19 +147,15 @@
                                             ?>
                                         >
                                     <?php
-                                        if ($i == 0) {
-                                            echo "Todos";
-                                        } else {
-                                            echo $i;
-                                        }
+                                         echo $i;
                                     ?>
                                 </option>
                                 <?php }?>
                             </select>
                         </div>
                         <div class="campo campo-input">
-                            <label for="grupo">Grupo</label>
-                            <select id="opciones" name="grupo">
+                            <label for="ac_grupo">Grupo</label>
+                            <select id="grupo<?php echo $estudiantes['s_id'];?>" name="ac_grupo">
                                 <option value="A" <?php if ($estudiantes['group'] == 'A') {echo 'selected';} else {echo '';}?>>A</option>
                                 <option value="B" <?php if ($estudiantes['group'] == 'B') {echo 'selected';} else {echo '';}?>>B</option>
                                 <option value="C" <?php if ($estudiantes['group'] == 'C') {echo 'selected';} else {echo '';}?>>C</option>
@@ -166,18 +163,20 @@
                             </select>
                         </div>
                         <div class="campo campo-input">
-                            <label for="nombre">Estado</label>
-                            <select id="opciones" name="estado">
+                            <label for="ac_estado">Estado</label>
+                            <select id="estado<?php echo $estudiantes['s_id'];?>" name="ac_estado">
                                 <option value="0" <?php if ($estudiantes['status'] == '0') {echo 'selected';} else {echo '';}?>>Inactivo</option>
                                 <option value="1" <?php if ($estudiantes['status'] == '1') {echo 'selected';} else {echo '';}?>>Activo</option>
                             </select>
                         </div>
-                        <div class="campo campo-input">
-                            <input type="submit" value="Actualizar" class="boton boton-alerta">
-                        </div>
+                        <input type="hidden" value='0' name="verificador" id='verificador'>
+                        <input type="hidden" value='<?php echo $estudiantes['s_id'];?>' id="s_id<?php echo $estudiantes['s_id'];?>" name='s_id'>
                     </form>
+                    <button onclick="javascript:sendForm(<?php echo $estudiantes['s_id'];?>);" class="boton boton-alerta" title="Actualizar">Actualizar</button>
                 </div>
             <?php endwhile; ?>
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script src="src/js/app.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </body>
 </html>

@@ -39,7 +39,7 @@ function mostrarInformacion(id) {
     }
 }
 
-function CambiarColor(id){
+function cambiarColor(id){
     const cambiarColor = document.querySelector('.estudianteClic' + id);
 
     if (cambiarColor.classList.contains('pintar')) {
@@ -47,4 +47,34 @@ function CambiarColor(id){
     } else {
         cambiarColor.classList.add('pintar');
     }
+}
+
+function sendForm(id) {
+    var datos = {
+        'nombre'  : document.getElementById('nombre' + id).value,
+        'apellido': document.getElementById('apellido' + id).value,
+        'email'   : document.getElementById('email' + id).value,
+        'telefono': document.getElementById('telefono' + id).value,
+        'grado'   : document.getElementById('lv_id' + id).value,
+        'grupo'   : document.getElementById('grupo' + id).value,
+        'estado'  : document.getElementById('estado' + id).value,
+        'verificador' : document.getElementById('verificador').value,
+        'id'          : document.getElementById('s_id' + id).value,
+    };
+
+    if (datos['nombre'] === '') {
+        swal("Error!", "Debes incluir el nombre del estudiante", "error");
+    } else if (datos['apellido'] === '') {
+        swal("Error!", "Debes incluir el apellido del estudiante", "error");
+    } else {
+        $.ajax({
+            type    : "POST",
+            url     : "src/php/actualizar.php",
+            async   : true,
+            data    : datos,
+            success : function(respuesta){},
+            error   : function(error){},
+        });
+        swal("Perfecto!", "El estudiante se ha actualizado correctamente", "success");
+    }   
 }
