@@ -89,6 +89,7 @@
                 <div class="estudiante-titulo estado">Estado</div>
             </div>
         </div>
+        <?php $estudiantesID = []; ?>
         <?php while ($estudiantes = mysqli_fetch_assoc($resultado)):?>
                 <div id='<?php echo $estudiantes['s_id']; ?>' class="estudiante eclic estudianteClic<?php echo $estudiantes['s_id'];?>">
                     <div class="centrar id" id='<?php echo $estudiantes['s_id']; ?>' data-value='<?php echo $estudiantes['s_id'];?>'><?php echo $estudiantes['s_id'];?></div>
@@ -172,9 +173,13 @@
                         <input type="hidden" value='0' name="verificador" id='verificador'>
                         <input type="hidden" value='<?php echo $estudiantes['s_id'];?>' id="s_id<?php echo $estudiantes['s_id'];?>" name='s_id'>
                     </form>
-                    <button onclick="javascript:sendForm(<?php echo $estudiantes['s_id'];?>);" class="boton boton-alerta" title="Actualizar">Actualizar</button>
+                    <div class="enviar">
+                        <button onclick="javascript:sendForm(<?php echo $estudiantes['s_id'];?>);" class="boton boton-alerta boton-actualizar" title="Actualizar">Actualizar</button>
+                    </div>
                 </div>
+                <?php $estudiantesID[] = $estudiantes['s_id'];?>
             <?php endwhile; ?>
+            <input type="hidden" value='<?php echo json_encode($estudiantesID)?>' id='arregloEst'>
         <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script src="src/js/app.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

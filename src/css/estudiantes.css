@@ -57,19 +57,28 @@
 .estudiante-actualizar {
     visibility: hidden;
     opacity: 0;
-    height: 0;
-    transition: visibility .3s ease-in-out, opacity 0.5s linear, height 0.5s linear;  
+    height: 0;  
     display: flex;
     position: relative;
 }
 
 .pestaña-actualizar {
+    display: block;
     visibility: hidden;
     opacity: 0;
-    height: 0;
-    transition: visibility .3s ease-in-out, opacity 0.5s linear, height 0.5s linear;  
-    display: flex;
+    height: 0;  
     position: relative;
+}
+
+.enviar {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.boton-actualizar{
+    width: 15rem;
 }
 
 .pestaña {
@@ -100,4 +109,9 @@
 .pestañaClic:hover {
     cursor:pointer;
     color: var(--terciario);
+}
+
+.contenedor-actualizar {
+    margin-left: 10rem;
+    margin-right: 10rem;
 }
