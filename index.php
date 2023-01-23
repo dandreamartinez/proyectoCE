@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="src/css/navegacion.css">
         <link rel="stylesheet" href="src/css/utilidades.css">
         <link rel="stylesheet" href="src/css/normalize.css">
+        <link rel="stylesheet" href="src/css/cursos.css">
         <link rel="icon" href="src/img/favicon.ico">
         <title>Ciudad Educativa</title>
     </head>
@@ -112,8 +113,8 @@
                     </div>
                 </div>
                 <div class="estudiante-actualizar<?php echo $estudiantes['s_id'];?> estudiante-actualizar">
-                    <div class="centrar titulo-actualizar pestaña pestañaClic actualizar pestañaColor">Actualizar</div>
-                    <div class="centrar titulo-actualizar pestaña pestañaClic curso">Cursos</div>
+                    <div class="centrar titulo-actualizar pestaña pestañaActualizar<?php echo $estudiantes['s_id'];?> actualizaClic a<?php echo $estudiantes['s_id']; ?>" id='<?php echo $estudiantes['s_id']; ?>'>Actualizar</div>
+                    <div class="centrar titulo-actualizar pestaña pestañaCurso<?php echo $estudiantes['s_id'];?> CursoClic c<?php echo $estudiantes['s_id']; ?>" id='<?php echo $estudiantes['s_id']; ?>'>Cursos</div>
                 </div>
                 <div class="pestaña-actualizar<?php echo $estudiantes['s_id'];?> pestaña-actualizar">
                     <form class="formActualizar" method="POST" action="index.php" enctype="multipart/form-data">
@@ -177,11 +178,26 @@
                         <button onclick="javascript:sendForm(<?php echo $estudiantes['s_id'];?>);" class="boton boton-alerta boton-actualizar" title="Actualizar">Actualizar</button>
                     </div>
                 </div>
+                <div class="pestaña-curso<?php echo $estudiantes['s_id'];?> pestaña-curso" id="ListaCursos<?php echo $estudiantes['s_id'];?>">
+                    <div class="contenedor-cursos">
+                        <ul class="listaCursos" id="Lista<?php echo $estudiantes['s_id'];?>">
+                
+                        </ul>
+                    </div>
+                    <div class="CursosNuevos">
+                        <label class="cursoSelec">Selecciona el curso que deseas agregar:</label>
+                        <select class="cursoSelec" name="nuevoCurso" id="nuevoCurso<?php echo $estudiantes['s_id'];?>">
+                        
+                        </select>
+                        <button  onclick="javascript:guardarCurso(<?php echo $estudiantes['s_id'];?>);" class="boton boton-alerta boton-actualizar nuevoCurso" title="Agregar_Curso" id="nuevoCursobtn<?php echo $estudiantes['s_id'];?>">Agregar Curso</button>
+                    </div>
+                </div>
                 <?php $estudiantesID[] = $estudiantes['s_id'];?>
+
             <?php endwhile; ?>
             <input type="hidden" value='<?php echo json_encode($estudiantesID)?>' id='arregloEst'>
         <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script src="src/js/app.js"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </body>
 </html>

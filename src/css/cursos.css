@@ -1,0 +1,38 @@
+.contenedor-cursos {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 10rem;
+    margin-right: 10rem;
+}
+.CursosNuevos {
+    display: grid;
+    gap: 0.2rem;
+    border-color: var(--griOscuro);
+    height: 10rem;
+}
+
+.nuevoCurso {
+    margin: 0;
+    height: 3rem;
+}
+
+.cursoSelec {
+    height: 2rem;
+}
+
+.imagenEliminar {
+    height: 2.5rem; 
+}
+.imagenEliminar:hover {
+    cursor:pointer;
+}
+
+
+.listaCursos {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.basurero {
+    width: 3rem;
+}

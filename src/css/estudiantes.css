@@ -90,10 +90,21 @@
     border-radius: 5rem 5rem 0 0;
 }
 
+.pestaña-curso {
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    height: 0;  
+    display: flex;
+    position: relative;
+}
+
 .mostrar {
     visibility: visible;
     opacity: 1;
     height: auto;
+    margin-bottom: 2rem;
+    border-color: black;
 }
 
 .pintar {
@@ -106,7 +117,7 @@
     font-weight: 800;
 }
 
-.pestañaClic:hover {
+.pestaña:hover {
     cursor:pointer;
     color: var(--terciario);
 }
