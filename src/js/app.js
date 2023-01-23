@@ -137,6 +137,8 @@ function cambioPestañaCurso(){
             pActualizar.classList.remove('pestañaColor');
             const pestañaOcultar = document.querySelector('.pestaña-actualizar' + pid);
             pestañaOcultar.classList.remove('mostrar');
+            const agregarcursosMostrar  = document.querySelector('.pestaña-curso' + pid);
+            agregarcursosMostrar.classList.add('mostrar');
         });
     });
 }
@@ -215,7 +217,8 @@ function mostrarcursos(id){
 function agregarCursos(){
     document.querySelectorAll('.CursoClic').forEach(occurence => {
         occurence.addEventListener('click', (e) => {
-            const aid           = e.target.getAttribute('id');
+            const aid                   = e.target.getAttribute('id');
+            
             $.ajax ({
                 type    : "POST",
                 url     : "src/php/mostrarCursos.php",
@@ -268,7 +271,8 @@ function guardarCurso(id, c_id) {
             'Perfecto?',
             'El curso fue agregado correctamente',
             'success'
-          )
+        )
+        recargarCursos(id);
     }
 }
 
@@ -297,10 +301,71 @@ function eliminarCursos(cid) {
                         error   : function(error){},
                     })
                     Swal.fire('Perfecto', 'El curso fue eliminado', 'success');
+                    recargarCursos(cid);
                 } else {
                     Swal.fire('', 'Se cancelo la eliminación del curso', 'info');
                 }
               })
         });
     });
+}
+
+function recargarCursos(cid){
+    $.ajax ({
+        type    : "POST",
+        url     : "src/php/cursos.php",
+        async   : true,
+        data    : {id: cid},
+        success : function(respuesta){},
+        error   : function(error){},
+    })
+    .done(function(res) {
+        var cursos                      = JSON.parse(res);
+        var curso                       = document.getElementById('Lista' + cid);
+        curso.innerHTML                 = '';
+        cursos.forEach(function(cursos) {
+            var unCurso                 = JSON.parse(`${cursos}`);
+            var div1                    = document.createElement('div');
+            var div2                    = document.createElement('div');
+            curso.appendChild(div1);
+            curso.appendChild(div2);
+            var elementoHtml            = document.createElement("li");
+            var mostrarcursos           = document.getElementById('ListaCursos' + cid);
+            mostrarcursos.classList.add('mostrar');
+            elementoHtml.textContent    = unCurso.name;
+            elementoHtml.classList.add('lista' + cid)
+            div1.appendChild(elementoHtml);
+            var imagen                  = document.createElement('img');
+            imagen.src                  = 'src/img/eliminar.png';
+            imagen.id                   = unCurso.c_id;
+            imagen.classList.add('imagenEliminar', 'basurero');
+            div2.id                     = unCurso.c_id;
+            div2.appendChild(imagen);
+        })
+        eliminarCursos(cid);
+    })  
+    $.ajax ({
+        type    : "POST",
+        url     : "src/php/mostrarCursos.php",
+        async   : true,
+        data    : {id: cid},
+        success : function(respuesta){},
+        error   : function(error){},
+    })
+    .done(function(res) {
+        var cursos                  = JSON.parse(res);
+        var cursoNuevo              = document.getElementById('nuevoCurso' + cid);
+        cursoNuevo.innerHTML        = '';
+        cursos.forEach(function(cursos) {
+            var unCursoN                = JSON.parse(`${cursos}`);
+            var select                  = document.createElement("option");
+            var mostrarcursos           = document.getElementById('nuevoCurso' + cid);
+            var mostrarcursosbtn        = document.getElementById('nuevoCursobtn' + cid);
+            mostrarcursos.classList.add('mostrar');
+            mostrarcursosbtn.classList.add('mostrar');
+            select.setAttribute('value', unCursoN.c_id);
+            select.textContent          = unCursoN.name;
+            cursoNuevo.appendChild(select);
+        })
+    })
 }
